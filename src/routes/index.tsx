@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowRight, CalendarDays, Instagram, MapPin, Menu, MessageCircle, Play, ShoppingBag, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,7 @@ function Header() {
   return <header className="fixed inset-x-0 top-0 z-50 border-t-[3px] border-gold border-b border-border/50 bg-background/90 backdrop-blur-xl">
     <div className="mx-auto grid h-[72px] max-w-[1360px] grid-cols-[auto_1fr_auto] items-center px-5 md:px-10">
       <BrandMark />
-      <nav className="ml-7 hidden items-center gap-7 md:flex">{links.map((link) => <a key={link} href={`#${link.toLowerCase()}`} className="text-[13px] transition-colors hover:text-gold">{link}</a>)}</nav>
+      <nav className="ml-7 hidden items-center gap-7 md:flex">{links.map((link) => link === "Classes" ? <Link key={link} to="/classes" className="text-[13px] transition-colors hover:text-gold">{link}</Link> : <a key={link} href={`#${link.toLowerCase()}`} className="text-[13px] transition-colors hover:text-gold">{link}</a>)}</nav>
       <div className="flex items-center gap-3">
         <a href="#classes" aria-label="View bookings" className="grid size-10 place-items-center transition-colors hover:text-gold"><ShoppingBag className="size-[18px]" /></a>
         <a href="#footer" className="hidden px-2 text-[13px] hover:text-gold md:block">Sign in</a>
@@ -50,7 +50,7 @@ function Header() {
         <Button variant="ghost" size="icon" className="md:hidden" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
       </div>
     </div>
-    {open && <nav className="border-t border-border bg-background px-6 py-6 md:hidden">{links.map((link) => <a onClick={() => setOpen(false)} key={link} href={`#${link.toLowerCase()}`} className="block border-b border-border/60 py-4 font-display text-2xl">{link}</a>)}</nav>}
+    {open && <nav className="border-t border-border bg-background px-6 py-6 md:hidden">{links.map((link) => link === "Classes" ? <Link onClick={() => setOpen(false)} key={link} to="/classes" className="block border-b border-border/60 py-4 font-display text-2xl">{link}</Link> : <a onClick={() => setOpen(false)} key={link} href={`#${link.toLowerCase()}`} className="block border-b border-border/60 py-4 font-display text-2xl">{link}</a>)}</nav>}
   </header>;
 }
 
